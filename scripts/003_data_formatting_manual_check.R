@@ -1,7 +1,7 @@
 rm(list=ls())
 # load all of the data frames ====
-setwd("/Users/ml16847/OneDrive - University of Bristol/001_projects/005_systematic_review/analysis/meta_analysis/manual_check/")
-list_files <- list.files("/Users/ml16847/OneDrive - University of Bristol/001_projects/005_systematic_review/analysis/meta_analysis/manual_check/")
+setwd("/Users/ml16847/OneDrive - University of Bristol/001_projects/systematic_review_MR_adiposity/analysis/meta_analysis/manual_check/")
+list_files <- list.files("/Users/ml16847/OneDrive - University of Bristol/001_projects/systematic_review_MR_adiposity/analysis/meta_analysis/manual_check/")
 list <- list()
 for (i in 1:length(list_files)){
   list[[i]] <- (read.csv(list_files[i], header=T))
