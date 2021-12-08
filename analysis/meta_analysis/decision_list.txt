@@ -1,0 +1,114 @@
+data_frame	decision	reason
+anthropometric_WC_WHRadjBMI.csv	N	incompatible effect estimate
+brain_alzheimers_BMI.csv	Y	compatible
+brain_multiple_scelrosis_BMI.csv	N	incompatible MR method
+brain_stroke_hemorrhagic_BMI.csv	Y	compatible
+brain_stroke_ischemic_BMI.csv	Y	compatible
+brain_stroke_stroke_BMI.csv	N	outcome overlap
+cancer_any_cancer_BMI.csv	N	incompatible MR method
+cancer_any_cancer_WHRadjBMI.csv	N	incompatible MR method
+cancer_breast_cancer_birthweight_ER.csv	Y	compatible
+cancer_breast_cancer_birthweight.csv	Y	compatible
+cancer_breast_cancer_BMI_ER.csv	N	incompatible MR method
+cancer_breast_cancer_BMI_postmenopausal.csv	N	incompatible MR method
+cancer_breast_cancer_BMI_premenopausal.csv	N	incompatible MR method
+cancer_breast_cancer_BMI.csv	N	outcome overlap
+cancer_breast_cancer_WHRadjBMI.csv	N	not enough information (exposure/outcome study, sex, population)
+cancer_colon_cancer_birthweight.csv	Y	compatible
+cancer_colon_cancer_BMI.csv	N	incompatible MR method
+cancer_colorectal_cancer_BMI.csv	Y	compatible
+cancer_colorectal_cancer_WHR.csv	Y	compatible
+cancer_endometrial_cancer_BMI.csv	Y	compatible
+cancer_kidney_cancer_BMI.csv	N	incompatible effect estimate
+cancer_lung_cancer_BMI_adenocarcinoma.csv	N	outcome overlap
+cancer_lung_cancer_BMI_ever_smokers.csv	N	outcome overlap
+cancer_lung_cancer_BMI_lung_cancer.csv	Y	compatible
+cancer_lung_cancer_BMI_never_smokers.csv	N	incompatible MR method
+cancer_lung_cancer_BMI_small_cell.csv	N	incompatible MR method
+cancer_lung_cancer_BMI_squamous_cell.csv	N	incompatible MR method
+cancer_lung_cancer_WHR_adenocarcinoma.csv	N	outcome overlap
+cancer_lung_cancer_WHR_lung_cancer.csv	N	outcome overlap
+cancer_ovarian_cancer_BMI_clear_cell.csv	N	incompatible MR method
+cancer_ovarian_cancer_BMI_endometroid.csv	N	incompatible MR method
+cancer_ovarian_cancer_BMI_ovarian_cancer.csv	Y	compatible
+cancer_pancreatic_cancer_BMI.csv	N	incompatible covariates
+cancer_prostate_cancer_BMI_prostate_cancer.csv	Y	compatible
+cardiovascular_cardiovascular_disease.csv	N	incompatible MR method
+cardiovascular_carotid_IMT.csv	N	incompatible units
+cardiovascular_coronary_artery_disease_birth_weight.csv	N	outcome overlap
+cardiovascular_coronary_artery_disease_BMI.csv	N	outcome overlap
+cardiovascular_coronary_artery_disease_WHR.csv	Y	compatible
+cardiovascular_coronary_artery_disease_WHRadjBMI.csv	Y	compatible
+cardiovascular_DBP_BMI.csv	N	incompatible units
+cardiovascular_DBP_WHRadjBMI.csv	N	incompatible units
+cardiovascular_deep_vein_thrombosis.csv	N	incompatible units
+cardiovascular_heart_failure.csv	N	outcome overlap
+cardiovascular_heart_rate.csv	N	incompatible age range
+cardiovascular_hypertension.csv	Y	compatible
+cardiovascular_myocardial_infarction.csv	N	outcome overlap
+cardiovascular_SBP_BMI.csv	Y	compatible
+cardiovascular_SBP_WHRadjBMI.csv	N	outcome overlap
+cardiovascular_venous_thromboembolism.csv	Y	compatible
+gastrointestinal_IBS_WHRadjBMI.csv	N	incompatible MR method
+hepatic_ALT_BMI.csv	N	incompatible outcome measures
+hepatic_GGT_BMI.csv	N	incompatible outcome measures
+mental_health_depression_BMI.csv	Y	compatible
+mental_health_depression_WHRadjBMI.csv	N	incompatible MR method
+mental_health_wellbeing_BMI.csv	N	outcome overlap
+metabolic_25OHD.csv	N	incompatibke MR method
+metabolic_albumin.csv	N	incompatible effect estimate
+metabolic_apoA1.csv	N	incompatible units
+metabolic_apoB.csv	N	incompatible units
+metabolic_cholesterol.csv	Y	compatible
+metabolic_CRP.csv	N	incompatible units
+metabolic_dyslipidemia.csv	N	incompatible MR method
+metabolic_EGFR_BMI.csv	N	incompatible effect estimate
+metabolic_EGFR_WHRadjBMI.csv	N	incompatible effect estimate
+metabolic_fasting_glucose_BMI.csv	Y	compatible
+metabolic_fasting_glucose_WHRadjBMI.csv	N	outcome overlap
+metabolic_fasting_insulin_BMI.csv	N	incompatible units
+metabolic_fasting_insulin_WHRadjBMI.csv	N	outcome overlap
+metabolic_glucose.csv	N	incompatible units
+metabolic_Gutt_index_BMI.csv	N	outcome overlap
+metabolic_Gutt_index_WHR.csv	N	outcome overlap
+metabolic_HbA1c.csv	Y	compatible
+metabolic_HDL_BMI.csv	Y	compatible - split into two based on units
+metabolic_HDL_WHRadjBMI.csv	N	incompatible effect estimate
+metabolic_HOMA_B_BMI.csv	N	incompatible exposure units
+metabolic_HOMA_B_WHR.csv	N	outcome overlap
+metabolic_HOMA_IR_BMI.csv	Y	compatible
+metabolic_HOMA_IR_WHR.csv	N	outcome overlap
+metabolic_IL6.csv	N	incompatible units
+metabolic_insulin_secretion_BMI.csv	N	not enough informaton available
+metabolic_insulin_secretion_WHR.csv	N	outcome overlap
+metabolic_insulin.csv	N	incompatible units
+metabolic_LDL_BMI.csv	Y	compatible - split into two based on units
+metabolic_LDL_WHRadjBMI.csv	N	incompatible effect estimate
+metabolic_leptin.csv	N	incompatible units
+metabolic_triglycerides_BMI.csv	N	incompatible units
+metabolic_triglycerides_WHRadjBMI.csv	N	incompatible effect estimate
+metabolic_two_hour_glucose.csv	N	incompatible units
+metabolic_type1_diabetes.csv	N	incompatible exposure
+metabolic_type2_diabetes_birth_weight.csv	N	incompatible units
+metabolic_type2_diabetes_BMI.csv	Y	compatible
+metabolic_type2_diabetes_WHRadjBMI.csv	Y	compatible
+metabolic_urate_BMI.csv	N	not enough information
+metabolic_uric_acid.csv	N	one includes a mediator
+other_mortality_BMI_all_cause.csv	N	incompatible populations
+reproductive_menarche_BMI.csv	N	incompatible units
+reproductive_PCOS_BMI.csv	Y	compatible
+respiratory_asthma_BMI_asthma.csv	Y	compatible
+respiratory_asthma_BMI_atopic.csv	N	incompatible MR method
+respiratory_asthma_BMI_non_atopic.csv	N	incompatible MR method
+respiratory_asthma_WHRadjBMI.csv	N	incompaitble MR method
+respiratory_FVC_BMI.csv	N	incompatible units
+skeletal_arthritis_BMI.csv	Y	compaitble
+skeletal_arthritis_WHRadjBMI.csv	N	incompatible MR method
+skeletal_BMD_BMI.csv	N	incompatible outcomes
+skeletal_BMD_fat_mass.csv	N	incompaitble effect estimates and units
+skeletal_osteoarthritis_BMI.csv	N	not enough information
+skeletal_osteoarthritis_WHRadjBMI.csv	N	incompatible MR method
+skeletal_osteoporosis_WHRadjBMI.csv	N	incompatible MR method
+social_education_BMI.csv	N	incompatible outcome
+social_income_BMI.csv	N	outcome overlap
+social_SES_BMI.csv	N	outcome overlap
