@@ -76,6 +76,17 @@ weight, waist hip ratio and more terms.
 -   A narrative synthesis summarising effect estimates for over 2,000 MR
     analyses was achieved using
     [`005_narrative_synthesis.R`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/scripts/005_narrative_synthesis.R).
+-   Additional figures:
+    [`PRISMA_flowchart.pdf`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/figures/PRISMA_flowchart.pdf),
+    [number of articles published per
+    year](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/figures/articles_published_per_year.pdf),
+    [study
+    designs](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/figures/study_design.pdf),
+    [quality assessment
+    scores](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/figures/quality_assessment_score_distribution.pdf).
+    The figure for the number of articles published per year has a
+    second *Y* axis which shows the average exposure (grey) and outcome
+    (red) sample sizes for each year.
 
 ## Detailed info
 
