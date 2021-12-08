@@ -1,0 +1,71 @@
+﻿rob_ID,.id,author,year,doi,Weak instrument bias ,Genetic confounding bias,Other Confounding bias ,Additional direct effects between IV and outcome (exclusion restriction assumption),Bias due to selection of participants (exposure),Bias due to selection of participants (outcome),IV association ,Sample overlap,Senisitivity analyses,Descriptive data,Data availability,Statistical paramaters,Total
+1,BMI (SD) on Alzheimers,Nordestgaard,2017,10.1210/jc.2017-00195,2,2,3,3,3,3,2,2,3,1,3,3,30
+2,BMI (SD) on Alzheimers,Østergaard,2015,10.1371/journal.pmed.1001841,2,2,1,1,3,3,2,2,1,1,3,2,23
+3,BMI (SD) on hemorrhagic stroke,Dale,2017,10.1161/CIRCULATIONAHA.116.026560,1,1,1,1,2,3,2,2,1,1,2,2,19
+4,BMI (SD) on hemorrhagic stroke,Fall,2013,10.1371/journal.pmed.1001474,2,2,3,3,3,3,2,2,3,1,3,1,28
+5,BMI (SD) on ischemic stroke,Censin,2019,10.1371/journal.pgen.1008405,1,2,3,1,3,3,2,1,1,2,2,3,24
+6,BMI (SD) on ischemic stroke,Larsson,2017,10.1212/WNL.0000000000004173,2,2,1,1,3,3,2,2,1,2,3,3,25
+7,Birthweight (SD) on ER- breast cancer,Gao,2016,10.1093/ije/dyw129,2,2,1,1,3,3,2,1,1,1,3,2,22
+8,Birthweight (SD) on ER- breast cancer,Kar,2018,10.1007/s10654-019-00485-7,1,2,1,1,3,3,3,1,1,1,2,2,21
+9,Birthweight (SD) on breast cancer,Gao,2016,10.1093/ije/dyw129,2,2,1,1,3,3,2,1,1,1,3,2,22
+10,Birthweight (SD) on breast cancer,Kar,2018,10.1007/s10654-019-00485-7,1,2,1,1,3,3,3,1,1,1,2,2,21
+11,Birthweight (SD) on colon cancer,Gao,2016,10.1093/ije/dyw129,2,2,1,1,3,3,2,1,1,1,3,2,22
+12,Birthweight (SD) on colon cancer,Jarvis,2016,10.1038/bjc.2016.188,2,2,1,2,3,3,2,1,2,1,3,3,25
+13,BMI (SD) on colorectal cancer,Gao,2016,10.1093/ije/dyw129,2,2,1,1,3,3,2,1,1,2,3,2,23
+14,BMI (SD) on colorectal cancer,Gharahkhani,2019,10.1038/s41416-019-0386-9,1,1,3,1,2,2,1,1,1,1,3,3,20
+15,BMI (SD) on colorectal cancer,Jarvis,2016,10.1038/bjc.2016.188,2,2,1,2,3,3,2,1,2,1,3,3,25
+16,WHR (SD) on colorectal cancer,Gao,2016,10.1093/ije/dyw129,2,2,1,1,3,3,2,1,1,1,3,2,22
+17,WHR (SD) on colorectal cancer,Jarvis,2016,10.1038/bjc.2016.188,2,2,1,2,3,3,2,1,2,1,3,3,25
+18,BMI (SD) on endometrial cancer,Gharahkhani,2019,10.1038/s41416-019-0386-9,1,1,3,1,2,2,1,1,1,1,3,3,20
+19,BMI (SD) on endometrial cancer,Painter,2016,10.1158/1055-9965.EPI-16-0147,2,2,2,1,3,3,2,1,1,1,3,3,24
+20,BMI (SD) on endometrial cancer,Yarmolinsky,2019,10.1101/472696,1,2,1,1,3,3,2,1,1,1,3,2,21
+21,BMI (SD) on lung cancer,Censin,2019,10.1371/journal.pgen.1008405,1,2,3,1,3,3,2,1,1,2,2,3,24
+22,BMI (SD) on lung cancer,Gao,2016,10.1093/ije/dyw129,2,2,1,1,3,3,2,1,1,2,3,2,23
+23,BMI (SD) on ovarian cancer,Gao,2016,10.1093/ije/dyw129,2,2,1,1,3,3,2,1,1,2,3,2,23
+24,BMI (SD) on ovarian cancer,Gharahkhani,2019,10.1038/s41416-019-0386-9,1,1,3,1,2,2,1,1,1,1,3,3,20
+25,BMI (SD) on prostate cancer,Gao,2016,10.1093/ije/dyw129,2,2,1,1,3,3,2,1,1,2,3,2,23
+26,BMI (SD) on prostate cancer,Gharahkhani,2019,10.1038/s41416-019-0386-9,1,1,3,1,2,2,1,1,1,1,3,3,20
+27,WHR (SD) on CAD,Censin,2019,10.1371/journal.pgen.1008405,1,2,3,1,3,3,2,1,1,1,2,3,23
+28,WHR (SD) on CAD,Lv,2018,10.1038/s41431-018-0180-9,2,2,1,1,3,3,2,3,1,2,3,3,26
+29,WHRadjBMI (SD) on CAD,Censin,2019,10.1371/journal.pgen.1008405,1,2,3,1,3,3,2,1,1,1,2,3,23
+30,WHRadjBMI (SD) on CAD,Dale,2017,10.1161/CIRCULATIONAHA.116.026560,1,1,2,1,2,3,2,2,1,2,2,2,21
+31,BMI (SD) on hypertension,Fall,2013,10.1371/journal.pmed.1001474,2,2,3,3,3,3,2,2,3,1,3,1,28
+32,BMI (SD) on hypertension,Lyall,2016,10.1001/jamacardio.2016.5804,2,2,3,1,3,2,2,1,1,1,2,3,23
+33,BMI (SD) on venous thromboembolism,Klarin,2017,10.1161/CIRCGENETICS.116.001643,2,2,3,3,3,3,2,1,3,2,3,3,30
+34,BMI (SD) on venous thromboembolism,Lindstrom,2017,10.1007/s00439-017-1811-x,2,2,1,2,3,3,2,2,2,1,3,2,25
+35,BMI (SD) on depression,Tyrrell,2018,10.1093/ije/dyy223,2,2,1,1,2,2,1,1,1,1,3,3,20
+36,BMI (SD) on type 2 diabetes,Censin,2019,10.1371/journal.pgen.1008405,1,2,3,1,3,3,2,1,1,2,2,3,24
+37,BMI (SD) on type 2 diabetes,Shu,2018,10.1093/ije/dyy201,2,2,1,3,3,3,3,2,3,1,3,3,29
+38,WHRadjBMI (SD) on type 2 diabetes,Censin,2019,10.1371/journal.pgen.1008405,1,2,3,1,3,3,2,1,1,2,2,3,24
+39,WHRadjBMI (SD) on type 2 diabetes,Shu,2018,10.1093/ije/dyy201,2,2,1,3,3,3,3,2,3,1,3,3,29
+40,BMI (SD) on PCOS,Brower,2018,10.1093/humrep/dey343,1,2,1,3,3,3,2,1,3,1,2,2,24
+41,BMI (SD) on asthma,Palmer,2011,10.1093/aje/kwr026,2,1,2,1,3,3,2,1,1,1,3,1,21
+42,BMI (SD) on asthma,Skaaby,2018,10.1111/all.13242,1,2,1,2,3,3,2,1,2,1,2,3,23
+43,BMI (SD) on arthritis,Larsson,2018,10.1093/rheumatology/key229,2,2,1,1,3,3,2,2,1,1,3,3,24
+44,BMI (SD) on SBP (mm/Hg),Holmes,2014,10.1016/j.ajhg.2013.12.014,1,1,2,2,3,3,2,1,2,1,2,3,23
+45,BMI (SD) on SBP (mm/Hg),Shapland,2018,10.1002/sim.8029,3,2,2,3,3,3,2,1,3,1,3,3,29
+46,BMI (SD) on SBP (mm/Hg),Wade,2018,10.1161/CIRCULATIONAHA.117.033278,2,2,1,1,2,2,1,1,1,1,3,3,20
+47,BMI (SD) on cholesterol (mmol/L),Fall,2013,10.1371/journal.pmed.1001474,2,2,3,3,3,3,2,2,3,1,3,1,28
+48,BMI (SD) on cholesterol (mmol/L),Wang,2016,10.1210/jc.2017-02789,1,1,3,1,3,3,2,1,1,1,3,3,23
+49,BMI (SD) on fasting glucose (mmol/L),Censin,2019,10.1371/journal.pgen.1008405,1,2,3,1,3,3,2,2,1,2,2,3,25
+50,BMI (SD) on fasting glucose (mmol/L),Fall,2013,10.1371/journal.pmed.1001474,2,2,3,3,3,3,2,2,3,1,3,1,28
+51,BMI (SD) on fasting glucose (mmol/L),Holmes,2014,10.1016/j.ajhg.2013.12.014,1,1,2,2,3,3,2,1,2,1,2,3,23
+52,BMI (SD) on fasting glucose (mmol/L),Xu,2017,10.1007/s00125-017-4396-y,1,2,1,1,3,3,2,2,1,1,3,2,22
+53,BMI (SD) on HbA1c (%),Fall,2013,10.1371/journal.pmed.1001474,2,2,3,3,3,3,2,2,3,1,3,1,28
+54,BMI (SD) on HbA1c (%),Xu,2017,10.1007/s00125-017-4396-y,1,2,1,1,3,3,2,2,1,1,3,2,22
+55,BMI (SD) on HDL (mmol/L),Fall,2013,10.1371/journal.pmed.1001474,2,2,3,3,3,3,2,2,3,1,3,1,28
+56,BMI (SD) on HDL (mmol/L),Holmes,2014,10.1016/j.ajhg.2013.12.014,1,1,2,2,3,3,2,1,2,1,2,3,23
+57,BMI (SD) on HDL (mmol/L),Wang,2016,10.1210/jc.2017-02789,1,1,3,1,3,3,2,1,1,1,3,3,23
+58,BMI (SD) on HDL (SD),Wurtz,2014,10.1371/journal.pmed.1001765,1,2,2,2,3,3,2,1,2,1,3,2,24
+59,BMI (SD) on HDL (SD),Xu,2017,10.1007/s00125-017-4396-y,1,2,1,1,3,3,2,2,1,1,3,2,22
+60,BMI (SD) on HOMA IR (SD),Kivimaki,2008,10.1093/eurheartj/ehn252,1,2,2,3,3,3,2,1,3,1,3,1,25
+61,BMI (SD) on HOMA IR (SD),Wang,2018,10.1002/oby.22167,2,2,3,3,3,3,2,2,3,1,3,3,30
+62,BMI (SD) on LDL (mmol/L),Fall,2013,10.1371/journal.pmed.1001474,2,2,3,3,3,3,2,2,3,1,3,1,28
+63,BMI (SD) on LDL (mmol/L),Holmes,2014,10.1016/j.ajhg.2013.12.014,1,1,2,2,3,3,2,1,2,1,2,3,23
+64,BMI (SD) on LDL (mmol/L),Wang,2016,10.1210/jc.2017-02789,1,1,3,1,3,3,2,1,1,1,3,3,23
+65,BMI (SD) on LDL (SD),Wurtz,2014,10.1371/journal.pmed.1001765,1,2,2,2,3,3,2,1,2,1,3,2,24
+66,BMI (SD) on LDL (SD),Xu,2017,10.1007/s00125-017-4396-y,1,2,1,3,3,3,2,2,3,1,3,2,26
+67,BMI (SD) on depression,Speed,2019,10.1101/539601,1,2,1,1,2,3,2,2,1,1,2,2,20
+68,BMI (SD) on depression,van den Broek,2018,10.1136/jech-2017-210000,2,2,1,1,3,3,3,2,1,1,2,2,23
+69,BMI (SD) on PCOS,Day,2018,10.1371/journal.pgen.1007813,2,2,2,1,3,3,2,1,1,2,3,1,23
+70,BMI (SD) on arthritis,Richardson,2019,10.7554/eLife.43657,2,2,1,3,3,3,2,2,3,1,3,3,28
