@@ -1,0 +1,13 @@
+name: SR_meta_analysis_browser
+title:
+username:
+account: mattlee
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5297884
+bundleId: 5351175
+url: https://mattlee.shinyapps.io/SR_meta_analysis_browser/
+when: 1639068326.0335
+lastSyncTime: 1639068326.03351
+asMultiple: FALSE
+asStatic: FALSE
