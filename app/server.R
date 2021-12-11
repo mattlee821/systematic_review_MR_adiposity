@@ -13,11 +13,11 @@ function(input, output, session) {
       data_extraction <- data_extraction[data_extraction$`Outcome group` == input$outcome_group,]
     }
     data_extraction
-  }))
+  }, rownames = FALSE))
   # meta_analysis
   output$meta_analysis <- DT::renderDataTable(DT::datatable(
     meta_analysis,
-    options = list("pageLength" = 50)
+    options = list("pageLength" = 50), rownames = FALSE
   ))
   
 }
