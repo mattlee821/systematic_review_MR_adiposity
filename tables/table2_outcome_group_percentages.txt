@@ -1,0 +1,17 @@
+Exposure	N	%
+metabolic	404	18.25
+cancer	352	15.9
+respiratory	318	14.36
+cardiovascular	285	12.87
+other	235	10.61
+mental health	127	5.74
+skeletal	95	4.29
+anthropometric	85	3.84
+brain	73	3.3
+hepatic	71	3.21
+social	71	3.21
+renal	34	1.54
+reproductive	19	0.86
+gastrointestinal	17	0.77
+skin	16	0.72
+immune	12	0.54
