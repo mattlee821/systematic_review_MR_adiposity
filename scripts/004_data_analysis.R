@@ -66,7 +66,7 @@ a$.id <- as.factor(a$.id)
 nlevels(a$.id)
 
 ## join QA results
-quality_assessment <- read.csv("../../quality_assessment/quality_assessment_results.csv", header = T)
+quality_assessment <- read.csv("../../quality_assessment/quality_assessment_results_raw.csv", header = T)
 quality_assessment <- quality_assessment[,c(1:5,18)]
 quality_assessment$QA[quality_assessment$Total < 36] <- "Medium"
 quality_assessment$QA[quality_assessment$Total > 28] <- "Low"
@@ -1344,6 +1344,12 @@ a <- c("BMI (SD) on prostate cancer", "BMI (SD) on prostate cancer",
                                  "BMI (SD) on asthma", "BMI (SD) on asthma",
                                  "BMI (SD) on arthritis", "BMI (SD) on arthritis")
 data_binary2 <- data_binary[data_binary$label_ID %in% a,] 
+
+results <- metagen(data = data_binary, subgroup = label_ID, TE = formatted_estimate, level.ci = 0.95, 
+                    studlab = paste(author, year, sep = " et al. "),
+                    lower = formatted_ci_lower, upper = formatted_ci_upper,
+                    method.tau = "PM",
+                    sm = "OR", hakn = F, title = c)
   
 results1 <- metagen(data = data_binary1, byvar = label_ID, TE = formatted_estimate, level.ci = 0.95, 
                    studlab = paste(author, year, sep = " et al. "),
@@ -1355,6 +1361,8 @@ results2 <- metagen(data = data_binary2, byvar = label_ID, TE = formatted_estima
                    lower = formatted_ci_lower, upper = formatted_ci_upper,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
+
+
 ### plots
 pdf("../../../figures/meta_analysis_results_figures/binary_outcomes1.pdf", height = 15, width = 8)
 forest(results1, byvar = results$label_ID, studlab = T, comb.fixed = F, comb.random = T, overall = F, overall.hetstat = F, leftcols = c("studlab", "QA"),
@@ -1366,8 +1374,16 @@ forest(results2, byvar = results$label_ID, studlab = T, comb.fixed = F, comb.ran
        bylab = results$label_ID, rightcols = c("effect", "ci", "w.random"))
 dev.off()
 
-
-
-
-
+pdf("../../../figures/meta_analysis_results_figures/binary_outcomes.pdf", height = 28, width = 8)
+forest(results, 
+       studlab = T, 
+       fixed = F,
+       random = T,
+       overall = F,
+       overall.hetstat = F, 
+       test.subgroup = F,
+       leftcols = c("studlab", "QA"),
+       subgroup.name = results$label_ID, 
+       rightcols = c("effect", "ci", "w.random"))
+dev.off()
 

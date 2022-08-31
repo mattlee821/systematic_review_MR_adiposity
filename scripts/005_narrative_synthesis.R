@@ -1,4 +1,5 @@
 rm(list=ls())
+library(plyr)
 # load all of the data frames ====
 setwd("/Users/ml16847/OneDrive - University of Bristol/001_projects/systematic_review_MR_adiposity/analysis/meta_analysis/data_for_analysis/")
 list_files <- list.files("/Users/ml16847/OneDrive - University of Bristol/001_projects/systematic_review_MR_adiposity/analysis/meta_analysis/data_for_analysis/")
@@ -73,14 +74,14 @@ list2env(list_continuous, envir=.GlobalEnv)
 
 # data ====
 setwd("/Users/ml16847/OneDrive - University of Bristol/001_projects/systematic_review_MR_adiposity/")
-data <- read.csv("analysis/data.csv", stringsAsFactors = F)
+data <- read.csv("analysis/002_data.csv", stringsAsFactors = F)
 rm(list=setdiff(ls(), c("data", "a")))
 d1 <- anti_join(data, a, by = "ID_analysis")
 a <- select(d1, author, year, doi, MR_design, exposure, exposure_definition, outcome, outcome_info, outcome_group, exposure_units, outcome_units, effect_estimate, estimate, se, ci_lower, ci_upper, p, exposure_n_current, exposure_n_og, outcome_n_case_current, outcome_n_control_current, ID_analysis)
 data <- a
 data$outcome_group <- as.factor(data$outcome_group)
 
-# anthropometric outcomes ====
+#  outcomes ====
 ## split into outcome based data frames
 for(i in levels(data$outcome_group)) {
   nam <- paste(i)
@@ -244,12 +245,6 @@ a3 <- a[a$outcome %in% traits, ]
 a4 <- a[!a$outcome %in% traits, ]
 a5 <- a4[,c(5,7,12:17)]
 rm(a1,a2,a3,a4,a5)
-
-
-
-
-
-
 
 
 # other ====

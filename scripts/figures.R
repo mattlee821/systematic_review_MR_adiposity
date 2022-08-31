@@ -86,8 +86,8 @@ pdf("figures/study_design.pdf", width = 10, height = 10)
 p1
 dev.off()
 
-# ====
-rob_data <- read.table("../systematic_review_MR_adiposity/analysis/quality_assessment/quality_assessment_results.txt", header = T, sep = "\t")
+# ====2
+rob_data <- read.csv("../systematic_review_MR_adiposity/analysis/quality_assessment/quality_assessment_results.csv")
 rob_data$QA[rob_data$Total <= 19] <- "High"
 rob_data$QA[rob_data$Total >= 20 ] <- "Medium"
 rob_data$QA[rob_data$Total >= 28] <- "Low"
@@ -96,7 +96,8 @@ rob_data$QA <- factor(rob_data$QA, levels = c("High", "Medium", "Low"))
 p1 <- ggplot(data = rob_data,
        aes(Total, fill = QA)) +
   geom_histogram(binwidth = 1, alpha = 0.8) +
-  theme_cowplot()
+  theme_cowplot() +
+  scale_fill_grey(start = 0,end = 0.8)
 pdf("figures/qa_distribution.pdf", width = 10, height = 10)
 p1
 dev.off()
