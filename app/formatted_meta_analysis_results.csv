@@ -1,32 +1,30 @@
 "exposure","outcome","re_effect","re_lower","re_upper","re_p","n"
-"BMI (SD)","Alzheimer's disease ",1.01,0.88,1.15,0.92,2
-"BMI (SD)","Arthritis ",1.48,0.68,3.21,0.32,2
-"BMI (SD)","Asthma ",1.08,0.88,1.33,0.45,2
-"Birth weight (SD)","Breast cancer ",0.94,0.77,1.14,0.52,2
-"Birth weight (SD)","Breast cancer ",1,0.73,1.39,0.98,2
-"BMI (SD)","Cholesterol (mmol/l)",1.01,0.98,1.04,0.7,2
-"Birth weight (SD)","Colorectal cancer ",0.94,0.55,1.61,0.83,2
-"BMI (SD)","Colorectal cancer ",1.18,1.01,1.38,0.038,3
-"WHR (SD)","Colorectal cancer ",1.48,1.07,2.05,0.019,2
-"WHR (SD)","Coronary artery disease ",1.64,1.41,1.9,8.9e-11,2
-"WHRadjBMI (SD)","Coronary artery disease ",1.41,1.32,1.5,2.2e-26,2
-"BMI (SD)","Depression ",1.11,1.04,1.19,0.003,3
-"BMI (SD)","Endometrial cancer ",1.57,1.11,2.21,0.01,3
-"BMI (SD)","Fasting glucose (mmol/l)",1.08,1.02,1.16,0.014,4
-"BMI (SD)","HbA1c (%)",1.03,0.99,1.07,0.21,2
-"BMI (SD)","HDL (mmol/l)",0.89,0.71,1.12,0.34,3
-"BMI (SD)","HDL (SD)",0.89,0.72,1.09,0.24,2
-"BMI (SD)","HOMA-IR (SD)",1.31,0.64,2.69,0.45,2
-"BMI (SD)","Hypertension ",1.36,0.94,1.97,0.1,2
-"BMI (SD)","LDL (mmol/l)",1,0.86,1.17,0.98,3
-"BMI (SD)","LDL (SD)",1.02,0.95,1.09,0.61,2
-"BMI (SD)","Lung cancer ",1.3,1.16,1.45,3.1e-06,2
-"BMI (SD)","Ovarian cancer ",1.39,1.2,1.61,9.6e-06,2
-"BMI (SD)","PCOS ",2.56,1.22,5.36,0.013,2
-"BMI (SD)","Prostate cancer ",1.08,0.9,1.31,0.39,2
-"BMI (SD)","SBP (mmhg)",2.21,1.71,2.85,1.3e-09,3
-"BMI (SD)","Stroke ",1.1,0.7,1.72,0.69,2
-"BMI (SD)","Stroke ",1.24,1.01,1.51,0.042,2
-"BMI (SD)","Type 2 diabetes ",2.48,1.53,4.05,0.00025,2
-"WHRadjBMI (SD)","Type 2 diabetes ",2.05,1.84,2.27,3.4e-40,2
-"BMI (SD)","Venous thromboembolism ",1.58,1.33,1.87,2.3e-07,2
+"BMI (SD)","alzheimer's disease ",1.01,0.88,1.15,0.92,2
+"BMI (SD)","arthritis ",1.48,0.68,3.25,0.33,2
+"BMI (SD)","asthma ",1.06,1.03,1.1,0.00045,2
+"birth weight (SD)","breast cancer ",0.94,0.77,1.14,0.51,2
+"birth weight (SD)","breast cancer ",1.01,0.72,1.42,0.97,2
+"BMI (SD)","cholesterol (mmol/L)",0.01,-0.02,0.03,0.63,2
+"birth weight (SD)","colorectal cancer ",0.94,0.54,1.64,0.83,2
+"BMI (SD)","colorectal cancer ",1.18,1.01,1.37,0.032,3
+"WHR (SD)","colorectal cancer ",1.48,1.08,2.03,0.014,2
+"WHR (SD)","coronary artery disease ",1.63,1.4,1.91,5.3e-10,2
+"BMI (SD)","depression ",1.11,1.04,1.19,0.0033,3
+"BMI (SD)","endometrial cancer ",1.57,1.11,2.22,0.011,3
+"BMI (SD)","fasting glucose (mmol/L)",0.08,0.02,0.15,0.015,4
+"BMI (SD)","HbA1c (%)",0.03,-0.02,0.07,0.22,2
+"BMI (SD)","HDL (mmol/L)",-0.11,-0.34,0.12,0.34,3
+"BMI (SD)","HDL (SD)",-0.12,-0.33,0.09,0.25,2
+"BMI (SD)","HOMA-IR (SD)",0.26,-0.42,0.95,0.45,2
+"BMI (SD)","hypertension ",1.36,0.94,1.98,0.11,2
+"BMI (SD)","LDL (mmol/L)",-0.01,-0.06,0.04,0.65,3
+"BMI (SD)","LDL (SD)",0.02,-0.03,0.07,0.43,2
+"BMI (SD)","lung cancer ",1.3,1.17,1.45,2.7e-06,2
+"BMI (SD)","ovarian cancer ",1.39,1.2,1.61,9.2e-06,2
+"BMI (SD)","PCOS ",2.55,1.22,5.34,0.013,2
+"BMI (SD)","prostate cancer ",1.08,0.91,1.28,0.37,2
+"BMI (SD)","SBP (mm/Hg)",0.79,0.54,1.05,1e-09,3
+"BMI (SD)","stroke ",1.08,0.73,1.59,0.71,2
+"BMI (SD)","stroke ",1.24,1,1.53,0.052,2
+"BMI (SD)","type 2 diabetes ",2.48,1.52,4.07,0.00031,2
+"BMI (SD)","venous thromboembolism ",1.58,1.33,1.87,2.3e-07,2

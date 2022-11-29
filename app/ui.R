@@ -50,13 +50,6 @@ navbarPage(
       column(10, title = "", id ="meta_analysis_table",
              DT::dataTableOutput("meta_analysis")),
       column(1),
-      
-      column(4, title = "", id ="meta_analysis_figure1", 
-             img(src = "binary_outcomes1.png", height = "100%", width = "100%")),
-      column(4, title = "", id ="meta_analysis_figure2", 
-             img(src = "binary_outcomes2.png", height = "100%", width = "100%")),
-      column(4, title = "", id ="meta_analysis_figure3", 
-             img(src = "continuous_outcomes.png", height = "100%", width = "100%")),
       )
     )
   )
