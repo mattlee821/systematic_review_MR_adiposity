@@ -7,86 +7,74 @@ weight, waist hip ratio and more terms.
 
 ## Start here
 
--   A compressed EndNote library (`.enlx`) and text file (`.txt`) of all
-    articles included in the (i) title and abstract screening, (ii) full
-    text screening, (iii) and data extraction are available in the
-    [`search/`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/master/search/)
-    directory.
--   PDFs of all articles included in data extraction are available in
-    [`search/003_articles_included_in_data_extraction/`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/master/search/003_articles_included_in_data_extraction).
--   This work was pre-registered on
-    [PROSPERO](https://www.crd.york.ac.uk/prospero/display_record.php?ID=CRD42018096684).
-    A copy of the pre-registration report is available in
-    [`supplement/`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/supplement/PROSPERO_registration_CRD42018096684.pdf).
--   The search strategy used for Medline, EMBASE, and bioRxiv is
-    available in
-    [`supplement/`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/supplement/search_strategy.pdf).
--   Data extraction was completed using a [data extraction Excel
-    file](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/supplement/data_extraction.xlsx)
-    and [data extraction
-    manual](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/supplement/data_extraction_manual.docx).
-    A list of studies assigned to each reviewer is available in
-    [`analysis/article_assignments_for_data_extraction/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/analysis/article_assignments_for_data_extraction).
--   After data extraction, data were checked and saved using
-    [`001_data_extraction.R`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/scripts/001_data_extraction.R)
-    and an `R` image
-    ([`001_data_extraction.RData`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/001_data_extraction.RData))
-    saved.
--   The raw data extraction file (`data_extraction.xlsx`) was converted
-    to a working data file
-    [`002_data.csv`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/002_data.csv)
-    and all data were formatted using
-    [`002_data_formatting.R`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/scripts/002_data_formatting.R).
-    This included saving individual `.csv` files for each
-    exposure-outcome pair,
-    [`analysis/meta_analysis/manual_check/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/analysis/meta_analysis/manual_check).
--   Each exposure-outcome analysis saved in each of these `.csv` files
-    underwent manual review
-    ([`003_data_formatting_manual_check.R`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/scripts/003_data_formatting_manual_check.R))
-    to decide if exposure-outcome pairs could be included in the
-    meta-analysis.
--   Inclusion in the meta-analysis was decided using
-    [`meta_analysis_flowchart.pdf`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/figures/meta_analysis_flowchart.pdf).
-    Decisions for each exposure-outcome analysis are given in
-    [`decisions_lis.txt`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/meta_analysis/decision_list.txt).
--   Prior to meta-analysis, quality assessment of all included MR
-    analyses was performed using the
-    [quality\_assessment\_tool.csv](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/quality_assessment/quality_assessment_tool.csv).
-    Results from the quality assessment are available in
-    [`analysis/quality_assessment`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/quality_assessment)
-    as `quality_assessment_results.csv`. Details of each study included
-    in quality assessment are available in
-    `quality_assessment_studies.csv`.
--   Data for each exposure-outcome pair included in the meta-analyses
-    are available in
-    [`analysis/meta_analysis/data_for_analysis/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/analysis/meta_analysis/data_for_analysis).
-    Meta-analysis of these data was performed using
-    [`004_data_analysis.R`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/scripts/004_data_analysis.R).
-    Results are available in
-    [`meta_analysis_results.csv`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/meta_analysis/results/meta_analysis_results.csv).
-    PDFs for each article contributing to an individual meta-analysis
-    are available in
-    [`analysis/meta_analysis/meta_analysed_studies/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/analysis/meta_analysis/meta_analysed_studies).
--   Forest plots for each individual meta-analysis are available in
-    [`figures/meta_analysis_results_figures/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/figures/meta_analysis_results_figures).
-    Forest plots of all continuous outcomes, as well as all binary
-    outcomes, and binary outcomes split between two plots are also
-    available in
-    [`figures/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/figures/).
--   A narrative synthesis summarising effect estimates for over 2,000 MR
-    analyses was achieved using
-    [`005_narrative_synthesis.R`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/scripts/005_narrative_synthesis.R).
--   Additional figures:
-    [`PRISMA_flowchart.pdf`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/figures/PRISMA_flowchart.pdf),
-    [number of articles published per
-    year](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/figures/articles_published_per_year.pdf),
-    [study
-    designs](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/figures/study_design.pdf),
-    [quality assessment
-    scores](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/figures/quality_assessment_score_distribution.pdf).
-    The figure for the number of articles published per year has a
-    second *Y* axis which shows the average exposure (grey) and outcome
-    (red) sample sizes for each year.
+- A compressed EndNote library (`.enlx`) and text file (`.txt`) of all
+  articles included in the (i) title and abstract screening, (ii) full
+  text screening, (iii) and data extraction are available in the
+  [`search/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/search/)
+  directory.
+- PDFs of all articles included in data extraction are available in
+  [`search/003_articles_included_in_data_extraction/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/search/003_articles_included_in_data_extraction).
+- This work was pre-registered on
+  [PROSPERO](https://www.crd.york.ac.uk/prospero/display_record.php?ID=CRD42018096684).
+  A copy of the pre-registration report is available in
+  [`supplement/`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/supplement/PROSPERO_registration_CRD42018096684.pdf).
+- The search strategy used for Medline, EMBASE, and bioRxiv is available
+  in
+  [`extended_data/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/extended_data).
+- Data extraction was completed using a [data extraction Excel
+  file](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/extended_data/3_data_extraction.xlsx)
+  and [data extraction
+  manual](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/extended_data/3_data_extraction_manual.docx).
+  A list of studies assigned to each reviewer is available in
+  [`analysis/article_assignments_for_data_extraction/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/analysis/article_assignments_for_data_extraction).
+- After data extraction, data were checked and saved using
+  [`001_data_extraction.R`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/scripts/001_data_extraction.R)
+  and an `R` image
+  ([`001_data_extraction.RData`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/001_data_extraction.RData))
+  saved.
+- The raw data extraction file (`data_extraction.xlsx`) was converted to
+  a working data file
+  [`002_data.csv`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/002_data.csv)
+  and all data were formatted using
+  [`002_data_formatting.R`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/scripts/002_data_formatting.R).
+  This included saving individual `.csv` files for each exposure-outcome
+  pair,
+  [`analysis/meta_analysis/manual_check/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/analysis/meta_analysis/manual_check).
+- Each exposure-outcome analysis saved in each of these `.csv` files
+  underwent manual review
+  ([`003_data_formatting_manual_check.R`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/scripts/003_data_formatting_manual_check.R))
+  to decide if exposure-outcome pairs could be included in the
+  meta-analysis.
+- Inclusion in the meta-analysis was decided using
+  [`meta_analysis_flowchart.pdf`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/figures/figure1_meta_analysis_flowchart.pdf).
+  Decisions for each exposure-outcome analysis are given in
+  [`decisions_list.txt`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/meta_analysis/decision_list.txt).
+- Prior to meta-analysis, quality assessment of all included MR analyses
+  was performed using the
+  [quality_assessment_tool.csv](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/quality_assessment/quality_assessment_tool.csv).
+  Results from the quality assessment are available in
+  [`analysis/quality_assessment`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/quality_assessment)
+  as `quality_assessment_results.csv`. Details of each study included in
+  quality assessment are available in `quality_assessment_studies.csv`.
+- Data for each exposure-outcome pair included in the meta-analyses are
+  available in
+  [`analysis/meta_analysis/data_for_analysis/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/analysis/meta_analysis/data_for_analysis).
+  Meta-analysis of these data was performed using
+  [`004_data_analysis.R`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/scripts/004_data_analysis.R).
+  Results are available in
+  [`meta_analysis_results.csv`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/analysis/meta_analysis/results/meta_analysis_results.csv).
+  PDFs for each article contributing to an individual meta-analysis are
+  available in
+  [`analysis/meta_analysis/meta_analysed_studies/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/analysis/meta_analysis/meta_analysed_studies).
+- Forest plots for each individual meta-analysis are available in
+  [`figures/meta_analysis_results_figures/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/figures/meta_analysis_results_figures).
+  Forest plots of all continuous outcomes, as well as all binary
+  outcomes, and binary outcomes split between two plots are also
+  available in
+  [`figures/`](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/figures/).
+- A narrative synthesis summarising effect estimates for over 2,000 MR
+  analyses was achieved using
+  [`005_narrative_synthesis.R`](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/main/scripts/005_narrative_synthesis.R).
 
 ## Detailed info
 
@@ -196,7 +184,7 @@ was used to supplement the meta-analyses and aid interpretation.
 ## Meta-analysis
 
 To identify studies which could be meta-analysed, a set of
-[rules](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/master/figures/meta_analysis_flowchart.pdf)
+[rules](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/figures/meta_analysis_flowchart.pdf)
 were used. These rules ensured that the exposure and outcome were
 consistent across studies, but also that there was no population overlap
 between the outcomes of different studies or between the outcomes and
@@ -215,7 +203,7 @@ bias is low. For completeness, studies were not excluded based on the
 quality assessment score, but are discussed later in this chapter when
 interpreting the meta-analysis findings. Inclusion and exclusion
 information is available as a [text
-file](https://github.com/mattlee821/systematic_review_MR_adiposity/blob/master/analysis/meta_analysis/decision_list.txt).
+file](https://github.com/mattlee821/systematic_review_MR_adiposity/tree/main/analysis/meta_analysis/decision_list.txt).
 
 Meta-analysis was performed using the `meta` package in `R` and the
 function `metagen()` using an inverse variance weighted random-effects
@@ -275,5 +263,3 @@ LJM, NM, TB, WW, SF, KHW
 Data extraction was performed a second time, independently by MAL and CH
 
 Analyses - MAL
-
-Writing - MAL
