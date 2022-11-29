@@ -6,13 +6,10 @@ library(grid)
 library(plyr)
 
 # load all of the data frames ====
-setwd("/Users/ml16847/OneDrive - University of Bristol/001_projects/systematic_review_MR_adiposity/analysis/meta_analysis/data_for_analysis/")
-list_files <- list.files("/Users/ml16847/OneDrive - University of Bristol/001_projects/systematic_review_MR_adiposity/analysis/meta_analysis/data_for_analysis/")
-list <- list()
-for (i in 1:length(list_files)){
-  list[[i]] <- (read.csv(list_files[i], header=T))
-}
-names(list) <- list_files
+filenames <- list.files("analysis/meta_analysis/data_for_analysis", pattern="*.csv", full.names=TRUE)
+list <- lapply(filenames, read.csv)
+filenames <- gsub(pattern = "analysis/meta_analysis/data_for_analysis/", replacement = "", filenames)
+names(list) <- filenames
 data <- ldply(list, data.frame)
 a <- select(data, .id, author, year, doi, MR_design, exposure, exposure_definition, outcome, outcome_info, exposure_units, outcome_units, effect_estimate, estimate, se, ci_lower, ci_upper, p, exposure_n_current, exposure_n_og, outcome_n_case_current, outcome_n_control_current, ID_analysis)
 a$.id2 <- paste(a$exposure, " on ", a$outcome, sep ="")
@@ -65,14 +62,57 @@ a$author <- gsub("Kivima ̈ki", "Kivimaki", a$author)
 a$.id <- as.factor(a$.id)
 nlevels(a$.id)
 
+# remove adjusted
+b <- subset(a, exposure == "WHRadjBMI") # remvoe adjusted traits beacsue bias
+a <- subset(a, exposure != "WHRadjBMI") # remvoe adjusted traits beacsue bias
+
+
+# make ID col
+a <- a[order(a$.id),]
+a$ID <- c("BMI (SD) on Alzheimer's disease", "BMI (SD) on Alzheimer's disease",
+          "BMI (SD) on hemorrhagic stroke", "BMI (SD) on hemorrhagic stroke",
+          "BMI (SD) on ischemic stroke", "BMI (SD) on ischemic stroke",
+          "Birthweight (SD) on ER- breast cancer", "Birthweight (SD) on ER- breast cancer",
+          "Birthweight (SD) on breast cancer", "Birthweight (SD) on breast cancer",
+          "Birthweight (SD) on colon cancer", "Birthweight (SD) on colon cancer",
+          "BMI (SD) on colorectal cancer", "BMI (SD) on colorectal cancer", 
+          "BMI (SD) on colorectal cancer", "WHR (SD) on colorectal cancer", 
+          "WHR (SD) on colorectal cancer", "BMI (SD) on endometrial cancer", 
+          "BMI (SD) on endometrial cancer", "BMI (SD) on endometrial cancer",
+          "BMI (SD) on lung cancer", "BMI (SD) on lung cancer",
+          "BMI (SD) on ovarian cancer", "BMI (SD) on ovarian cancer",
+          "BMI (SD) on prostate cancer", "BMI (SD) on prostate cancer",
+          "WHR (SD) on coronary artery disease", "WHR (SD) on coronary artery disease",
+          "BMI (SD) on hypertension", "BMI (SD) on hypertension",
+          "BMI (SD) on systolic blood pressure (mm/Hg)", "BMI (SD) on systolic blood pressure (mm/Hg)", 
+          "BMI (SD) on systolic blood pressure (mm/Hg)", "BMI (SD) on venous thromboembolism", 
+          "BMI (SD) on venous thromboembolism", "BMI (SD) on depression",
+          "BMI (SD) on depression", "BMI (SD) on depression",
+          "BMI (SD) on total cholesterol (mmol/L)", "BMI (SD) on total cholesterol (mmol/L)",
+          "BMI (SD) on fasting glucose (mmol/L)", "BMI (SD) on fasting glucose (mmol/L)", 
+          "BMI (SD) on fasting glucose (mmol/L)", "BMI (SD) on fasting glucose (mmol/L)",
+          "BMI (SD) on haemoglobin A1C (%)", "BMI (SD) on haemoglobin A1C (%)",
+          "BMI (SD) on HDL-C (mmol/L)", "BMI (SD) on HDL-C (mmol/L)", 
+          "BMI (SD) on HDL-C (mmol/L)", "BMI (SD) on HDL-C (SD)", 
+          "BMI (SD) on HDL-C (SD)","BMI (SD) on HOMA IR (SD)",
+          "BMI (SD) on HOMA IR (SD)", "BMI (SD) on LDL-C (mmol/L)", 
+          "BMI (SD) on LDL-C (mmol/L)", "BMI (SD) on LDL-C (mmol/L)",
+          "BMI (SD) on LDL-C (SD)", "BMI (SD) on LDL-C (SD)",
+          "BMI (SD) on type 2 diabetes", "BMI (SD) on type 2 diabetes",
+          "BMI (SD) on polycystic ovary syndrome", "BMI (SD) on polycystic ovary syndrome",
+          "BMI (SD) on asthma", "BMI (SD) on asthma",
+          "BMI (SD) on arthritis", "BMI (SD) on arthritis")
+
 ## join QA results
-quality_assessment <- read.csv("../../quality_assessment/quality_assessment_results_raw.csv", header = T)
-quality_assessment <- quality_assessment[,c(1:5,18)]
+quality_assessment <- read.csv("analysis/quality_assessment/quality_assessment_results.csv", header = T)
+quality_assessment <- quality_assessment[,c(1:5,17)]
+quality_assessment<- quality_assessment[- grep("WHRadjBMI", quality_assessment$.id),] # remove whradjbmi because of bias
 quality_assessment$QA[quality_assessment$Total < 36] <- "Medium"
 quality_assessment$QA[quality_assessment$Total > 28] <- "Low"
 quality_assessment$QA[quality_assessment$Total < 20] <- "High"
 quality_assessment <- quality_assessment[,c("doi", ".id", "QA")]
-a <- left_join(a, quality_assessment, by = c("doi", ".id") )
+colnames(quality_assessment)[2] <- "ID"
+a <- left_join(a, quality_assessment, by = c("doi", "ID"))
 
 ## binary data 
 data_binary <- subset(a, outcome_units == "Case/control")
@@ -100,7 +140,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b, ".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b, ".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -137,7 +177,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -175,7 +215,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -213,7 +253,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -251,7 +291,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -289,7 +329,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -327,7 +367,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -365,7 +405,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -403,7 +443,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -441,7 +481,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -479,7 +519,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -517,7 +557,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -555,7 +595,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -582,44 +622,44 @@ table1 <- data.frame(title = results$title, exposure = a$exposure[1], exposure_u
 table <- rbind(table, table1)
 rm(cardiovascular_coronary_artery_disease_WHR.csv)
 
-## cardiovascular_coronary_artery_disease_WHRadjBMI.csv ====
-a <- cardiovascular_coronary_artery_disease_WHRadjBMI.csv
-b <- "14_WHRadjBMI_on_CAD"
-c <- "WHRadjBMI on CAD"
-### meta-analyse
-results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95, 
-                   studlab = paste(author, year, sep = " et al. "),
-                   lower = formatted_ci_lower, upper = formatted_ci_upper,
-                   method.tau = "PM",
-                   sm = "OR", hakn = F, title = c)
-### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
-forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
-grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
-dev.off()
-### table
-table1 <- data.frame(title = results$title, exposure = a$exposure[1], exposure_units = a$exposure_units[1], outcome = a$outcome[1], outcome_units = a$outcome_units[1], 
-                     n = results$k,
-                     studies = paste(results$studlab[1], results$studlab[2], sep = " & "), doi = paste(a$doi[1], a$doi[2], sep = " & "),
-                     fe_effect = exp(results$TE.fixed),
-                     fe_lower = exp(results$lower.fixed),
-                     fe_upper = exp(results$upper.fixed),
-                     fe_p = results$pval.fixed,
-                     re_effect = exp(results$TE.random),
-                     re_lower = exp(results$lower.random),
-                     re_upper = exp(results$upper.random),
-                     re_p = results$pval.random,
-                     q = results$Q,
-                     q_df = results$df.Q,
-                     q_p = results$pval.Q,
-                     tau2 = results$tau2,
-                     tau2_se = results$se.tau2,
-                     tau = results$tau,
-                     h = results$H,
-                     i1 = results$I2)
-table <- rbind(table, table1)
-rm(cardiovascular_coronary_artery_disease_WHRadjBMI.csv)
-
+# ## cardiovascular_coronary_artery_disease_WHRadjBMI.csv ====
+# a <- cardiovascular_coronary_artery_disease_WHRadjBMI.csv
+# b <- "14_WHRadjBMI_on_CAD"
+# c <- "WHRadjBMI on CAD"
+# ### meta-analyse
+# results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95, 
+#                    studlab = paste(author, year, sep = " et al. "),
+#                    lower = formatted_ci_lower, upper = formatted_ci_upper,
+#                    method.tau = "PM",
+#                    sm = "OR", hakn = F, title = c)
+# ### plots
+# pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+# forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
+# grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
+# dev.off()
+# ### table
+# table1 <- data.frame(title = results$title, exposure = a$exposure[1], exposure_units = a$exposure_units[1], outcome = a$outcome[1], outcome_units = a$outcome_units[1], 
+#                      n = results$k,
+#                      studies = paste(results$studlab[1], results$studlab[2], sep = " & "), doi = paste(a$doi[1], a$doi[2], sep = " & "),
+#                      fe_effect = exp(results$TE.fixed),
+#                      fe_lower = exp(results$lower.fixed),
+#                      fe_upper = exp(results$upper.fixed),
+#                      fe_p = results$pval.fixed,
+#                      re_effect = exp(results$TE.random),
+#                      re_lower = exp(results$lower.random),
+#                      re_upper = exp(results$upper.random),
+#                      re_p = results$pval.random,
+#                      q = results$Q,
+#                      q_df = results$df.Q,
+#                      q_p = results$pval.Q,
+#                      tau2 = results$tau2,
+#                      tau2_se = results$se.tau2,
+#                      tau = results$tau,
+#                      h = results$H,
+#                      i1 = results$I2)
+# table <- rbind(table, table1)
+# rm(cardiovascular_coronary_artery_disease_WHRadjBMI.csv)
+# 
 ## cardiovascular_hypertension.csv ====
 a <- cardiovascular_hypertension.csv
 b <- "15_BMI_on_hypertension"
@@ -631,7 +671,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -669,7 +709,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -707,7 +747,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -746,7 +786,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -773,44 +813,44 @@ table1 <- data.frame(title = results$title, exposure = a$exposure[1], exposure_u
 table <- rbind(table, table1)
 rm(metabolic_type2_diabetes_BMI.csv)
 
-## metabolic_type2_diabetes_WHRadjBMI.csv ====
-a <- metabolic_type2_diabetes_WHRadjBMI.csv
-b <- "28_WHRadjBMI_on_type2_diabetes"
-c <- "WHRadjBMI on type 2 diabetes"
-### meta-analyse
-results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95, 
-                   studlab = paste(author, year, sep = " et al. "),
-                   lower = formatted_ci_lower, upper = formatted_ci_upper,
-                   method.tau = "PM",
-                   sm = "OR", hakn = F, title = c)
-### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
-forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
-grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
-dev.off()
-### table
-table1 <- data.frame(title = results$title, exposure = a$exposure[1], exposure_units = a$exposure_units[1], outcome = a$outcome[1], outcome_units = a$outcome_units[1], 
-                     n = results$k,
-                     studies = paste(results$studlab[1], results$studlab[2], sep = " & "), doi = paste(a$doi[1], a$doi[2], sep = " & "),
-                     fe_effect = exp(results$TE.fixed),
-                     fe_lower = exp(results$lower.fixed),
-                     fe_upper = exp(results$upper.fixed),
-                     fe_p = results$pval.fixed,
-                     re_effect = exp(results$TE.random),
-                     re_lower = exp(results$lower.random),
-                     re_upper = exp(results$upper.random),
-                     re_p = results$pval.random,
-                     q = results$Q,
-                     q_df = results$df.Q,
-                     q_p = results$pval.Q,
-                     tau2 = results$tau2,
-                     tau2_se = results$se.tau2,
-                     tau = results$tau,
-                     h = results$H,
-                     i1 = results$I2)
-table <- rbind(table, table1)
-rm(metabolic_type2_diabetes_WHRadjBMI.csv)
-
+# ## metabolic_type2_diabetes_WHRadjBMI.csv ====
+# a <- metabolic_type2_diabetes_WHRadjBMI.csv
+# b <- "28_WHRadjBMI_on_type2_diabetes"
+# c <- "WHRadjBMI on type 2 diabetes"
+# ### meta-analyse
+# results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95, 
+#                    studlab = paste(author, year, sep = " et al. "),
+#                    lower = formatted_ci_lower, upper = formatted_ci_upper,
+#                    method.tau = "PM",
+#                    sm = "OR", hakn = F, title = c)
+# ### plots
+# pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+# forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
+# grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
+# dev.off()
+# ### table
+# table1 <- data.frame(title = results$title, exposure = a$exposure[1], exposure_units = a$exposure_units[1], outcome = a$outcome[1], outcome_units = a$outcome_units[1], 
+#                      n = results$k,
+#                      studies = paste(results$studlab[1], results$studlab[2], sep = " & "), doi = paste(a$doi[1], a$doi[2], sep = " & "),
+#                      fe_effect = exp(results$TE.fixed),
+#                      fe_lower = exp(results$lower.fixed),
+#                      fe_upper = exp(results$upper.fixed),
+#                      fe_p = results$pval.fixed,
+#                      re_effect = exp(results$TE.random),
+#                      re_lower = exp(results$lower.random),
+#                      re_upper = exp(results$upper.random),
+#                      re_p = results$pval.random,
+#                      q = results$Q,
+#                      q_df = results$df.Q,
+#                      q_p = results$pval.Q,
+#                      tau2 = results$tau2,
+#                      tau2_se = results$se.tau2,
+#                      tau = results$tau,
+#                      h = results$H,
+#                      i1 = results$I2)
+# table <- rbind(table, table1)
+# rm(metabolic_type2_diabetes_WHRadjBMI.csv)
+# 
 ## reproductive_PCOS_BMI.csv ====
 a <- reproductive_PCOS_BMI.csv
 b <- "29_BMI_on_PCOS"
@@ -822,7 +862,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -860,7 +900,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -898,7 +938,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -939,7 +979,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "MD", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -977,7 +1017,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "MD", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -1015,7 +1055,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "MD", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -1053,7 +1093,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "MD", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -1083,7 +1123,7 @@ rm(metabolic_HbA1c.csv)
 ## metabolic_HDL_BMI_1.csv ====
 a <- metabolic_HDL_BMI_1.csv
 b <- "22_BMI_on_HDL_mmol"
-c <- "BMI on HDL mmol"
+c <- "BMI on HDL-C mmol"
 ### meta-analyse
 results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95, 
                    studlab = paste(author, year, sep = " et al. "),
@@ -1091,7 +1131,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "MD", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -1121,7 +1161,7 @@ rm(metabolic_HDL_BMI_1.csv)
 ## metabolic_HDL_BMI_2.csv  ====
 a <- metabolic_HDL_BMI_2.csv
 b <- "23_BMI_on_HDL_SD"
-c <- "BMI on HDL SD"
+c <- "BMI on HDL-C SD"
 ### meta-analyse
 results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95, 
                    studlab = paste(author, year, sep = " et al. "),
@@ -1129,7 +1169,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "MD", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -1167,7 +1207,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "MD", hakn = F, adhoc.hakn = "ci", title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -1197,7 +1237,7 @@ rm(metabolic_HOMA_IR_BMI.csv)
 ## metabolic_LDL_BMI_1.csv  ====
 a <- metabolic_LDL_BMI_1.csv
 b <- "25_BMI_on_LDL_mmol"
-c <- "BMI on LDL mmol"
+c <- "BMI on LDL-C mmol"
 ### meta-analyse
 results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95, 
                    studlab = paste(author, year, sep = " et al. "),
@@ -1205,7 +1245,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "MD", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -1235,7 +1275,7 @@ rm(metabolic_LDL_BMI_1.csv)
 ## metabolic_LDL_BMI_2.csv  ====
 a <- metabolic_LDL_BMI_2.csv
 b <- "26_BMI_on_LDL_SD"
-c <- "BMI on LDL SD"
+c <- "BMI on LDL-C SD"
 ### meta-analyse
 results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95, 
                    studlab = paste(author, year, sep = " et al. "),
@@ -1243,7 +1283,7 @@ results <- metagen(data = a, TE = formatted_estimate, pval = p, level.ci = 0.95,
                    method.tau = "PM",
                    sm = "MD", hakn = F, title = c)
 ### plots
-pdf(paste("../../../figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
+pdf(paste("figures/meta_analysis_results_figures/", b,".pdf", sep = ""), height = 4, width = 10)
 forest(results, studlab = T, comb.fixed = F, comb.random = T, leftcols = c("studlab", "doi"))
 grid.text(c, .5, 0.8, gp=gpar(cex=1.4))
 dev.off()
@@ -1271,32 +1311,42 @@ table <- rbind(table, table1)
 rm(metabolic_LDL_BMI_2.csv)
 
 # results table ====
-write.csv(table, "../meta_analysis_results.csv", row.names = F)
+write.csv(table, "analysis/meta_analysis/results/meta_analysis_results.csv", row.names = F)
 
 # continuous overall forestplot analysis ====
 data_continuous <- bind_rows(list_continuous, .id = "column_label")
+continuous_label <- c("BMI (SD) on Systolic blood pressure (mm/Hg)", "BMI (SD) on Systolic blood pressure (mm/Hg)", "BMI (SD) on Systolic blood pressure (mm/Hg)",
+                      "BMI (SD) on total cholesterol (mmol/L)", "BMI (SD) on total cholesterol (mmol/L)",
+                      "BMI (SD) on fasting glucose (mmol/L)", "BMI (SD) on fasting glucose (mmol/L)", "BMI (SD) on fasting glucose (mmol/L)", "BMI (SD) on fasting glucose (mmol/L)",
+                      "BMI (SD) on haemoglobin A1C (%)", "BMI (SD) on haemoglobin A1C (%)",
+                      "BMI (SD) on HDL-C (mmol/L)", "BMI (SD) on HDL-C (mmol/L)", "BMI (SD) on HDL-C (mmol/L)",
+                      "BMI (SD) on HDL-C (SD)", "BMI (SD) on HDL-C (SD)",
+                      "BMI (SD) on HOMA IR (SD)", "BMI (SD) on HOMA IR (SD)",
+                      "BMI (SD) on LDL-C (mmol/L)", "BMI (SD) on LDL-C (mmol/L)", "BMI (SD) on LDL-C (mmol/L)",
+                      "BMI (SD) on LDL-C (SD)", "BMI (SD) on LDL-C (SD)")
 data_continuous$label_ID <- c("BMI (SD) on Systolic blood pressure (mm/Hg)", "BMI (SD) on Systolic blood pressure (mm/Hg)", "BMI (SD) on Systolic blood pressure (mm/Hg)",
                               "BMI (SD) on total cholesterol (mmol/L)", "BMI (SD) on total cholesterol (mmol/L)",
                               "BMI (SD) on fasting glucose (mmol/L)", "BMI (SD) on fasting glucose (mmol/L)", "BMI (SD) on fasting glucose (mmol/L)", "BMI (SD) on fasting glucose (mmol/L)",
                               "BMI (SD) on haemoglobin A1C (%)", "BMI (SD) on haemoglobin A1C (%)",
-                              "BMI (SD) on HDL (mmol/L)", "BMI (SD) on HDL (mmol/L)", "BMI (SD) on HDL (mmol/L)",
-                              "BMI (SD) on HDL (SD)", "BMI (SD) on HDL (SD)",
+                              "BMI (SD) on HDL-C (mmol/L)", "BMI (SD) on HDL-C (mmol/L)", "BMI (SD) on HDL-C (mmol/L)",
+                              "BMI (SD) on HDL-C (SD)", "BMI (SD) on HDL-C (SD)",
                               "BMI (SD) on HOMA IR (SD)", "BMI (SD) on HOMA IR (SD)",
-                              "BMI (SD) on LDL (mmol/L)", "BMI (SD) on LDL (mmol/L)", "BMI (SD) on LDL (mmol/L)",
-                              "BMI (SD) on LDL (SD)", "BMI (SD) on LDL (SD)")
+                              "BMI (SD) on LDL-C (mmol/L)", "BMI (SD) on LDL-C (mmol/L)", "BMI (SD) on LDL-C (mmol/L)",
+                              "BMI (SD) on LDL-C (SD)", "BMI (SD) on LDL-C (SD)")
 
 results <- metagen(data = data_continuous, byvar = label_ID, TE = formatted_estimate, level.ci = 0.95, 
                    studlab = paste(author, year, sep = " et al. "),
                    lower = formatted_ci_lower, upper = formatted_ci_upper,
                    method.tau = "PM",
                    sm = "MD", hakn = F, title = c)
+
 ### plots
-pdf("../../../figures/meta_analysis_results_figures/continuous_outcomes.pdf", height = 13, width = 8)
-forest(results, byvar = results$label_ID, studlab = T, comb.fixed = F, comb.random = T, overall = F, overall.hetstat = F, leftcols = c("studlab", "QA"),
+pdf("figures/meta_analysis_results_figures/continuous_outcomes.pdf", height = 13, width = 8)
+forest(results, byvar = results$label_ID, studlab = T, fixed = F, random = T, overall = F, overall.hetstat = F, test.subgroup = F, leftcols = c("studlab", "QA"),
        bylab = results$label_ID, rightcols = c("effect", "ci", "w.random"))
 dev.off()
 
-# binary overall forestplot analysis ====
+ # binary overall forestplot analysis ====
 data_binary$label_ID <- c("BMI (SD) on Alzheimer's disease", "BMI (SD) on Alzheimer's disease",
                           "BMI (SD) on hemorrhagic stroke", "BMI (SD) on hemorrhagic stroke",
                           "BMI (SD) on ischemic stroke", "BMI (SD) on ischemic stroke",
@@ -1310,12 +1360,10 @@ data_binary$label_ID <- c("BMI (SD) on Alzheimer's disease", "BMI (SD) on Alzhei
                           "BMI (SD) on ovarian cancer", "BMI (SD) on ovarian cancer",
                           "BMI (SD) on prostate cancer", "BMI (SD) on prostate cancer",
                           "WHR (SD) on coronary artery disease", "WHR (SD) on coronary artery disease",
-                          "WHRadjBMI (SD) on coronary artery disease", "WHRadjBMI (SD) on coronary artery disease",
                           "BMI (SD) on hypertension", "BMI (SD) on hypertension",
                           "BMI (SD) on venous thromboembolism", "BMI (SD) on venous thromboembolism",
                           "BMI (SD) on depression", "BMI (SD) on depression", "BMI (SD) on depression",
                           "BMI (SD) on type 2 diabetes", "BMI (SD) on type 2 diabetes",
-                          "WHRadjBMI (SD) on type 2 diabetes", "WHRadjBMI (SD) on type 2 diabetes",
                           "BMI (SD) on polycystic ovary syndrome", "BMI (SD) on polycystic ovary syndrome",
                           "BMI (SD) on asthma", "BMI (SD) on asthma",
                           "BMI (SD) on arthritis", "BMI (SD) on arthritis")
@@ -1332,14 +1380,13 @@ a <- c("BMI (SD) on Alzheimer's disease", "BMI (SD) on Alzheimer's disease",
        "BMI (SD) on lung cancer", "BMI (SD) on lung cancer",
        "BMI (SD) on ovarian cancer", "BMI (SD) on ovarian cancer")
 data_binary1 <- data_binary[data_binary$label_ID %in% a,] 
+
 a <- c("BMI (SD) on prostate cancer", "BMI (SD) on prostate cancer",
        "WHR (SD) on coronary artery disease", "WHR (SD) on coronary artery disease",
-                                 "WHRadjBMI (SD) on coronary artery disease", "WHRadjBMI (SD) on coronary artery disease",
                                  "BMI (SD) on hypertension", "BMI (SD) on hypertension",
                                  "BMI (SD) on venous thromboembolism", "BMI (SD) on venous thromboembolism",
                                  "BMI (SD) on depression", "BMI (SD) on depression", "BMI (SD) on depression",
                                  "BMI (SD) on type 2 diabetes", "BMI (SD) on type 2 diabetes",
-                                 "WHRadjBMI (SD) on type 2 diabetes", "WHRadjBMI (SD) on type 2 diabetes",
                                  "BMI (SD) on polycystic ovary syndrome", "BMI (SD) on polycystic ovary syndrome",
                                  "BMI (SD) on asthma", "BMI (SD) on asthma",
                                  "BMI (SD) on arthritis", "BMI (SD) on arthritis")
@@ -1362,19 +1409,18 @@ results2 <- metagen(data = data_binary2, byvar = label_ID, TE = formatted_estima
                    method.tau = "PM",
                    sm = "OR", hakn = F, title = c)
 
-
 ### plots
-pdf("../../../figures/meta_analysis_results_figures/binary_outcomes1.pdf", height = 15, width = 8)
-forest(results1, byvar = results$label_ID, studlab = T, comb.fixed = F, comb.random = T, overall = F, overall.hetstat = F, leftcols = c("studlab", "QA"),
+pdf("figures/meta_analysis_results_figures/binary_outcomes1.pdf", height = 15, width = 8)
+forest(results1, byvar = results$label_ID, studlab = T, fixed = F, random = T, overall = F, overall.hetstat = F, test.subgroup = F, leftcols = c("studlab", "QA"),
        bylab = results$label_ID, rightcols = c("effect", "ci", "w.random"))
 dev.off()
 
-pdf("../../../figures/meta_analysis_results_figures/binary_outcomes2.pdf", height = 15, width = 8)
-forest(results2, byvar = results$label_ID, studlab = T, comb.fixed = F, comb.random = T, overall = F, overall.hetstat = F, leftcols = c("studlab", "QA"),
+pdf("figures/meta_analysis_results_figures/binary_outcomes2.pdf", height = 13, width = 8)
+forest(results2, byvar = results$label_ID, studlab = T, fixed = F, random = T, overall = F, overall.hetstat = F, test.subgroup = F, leftcols = c("studlab", "QA"),
        bylab = results$label_ID, rightcols = c("effect", "ci", "w.random"))
 dev.off()
 
-pdf("../../../figures/meta_analysis_results_figures/binary_outcomes.pdf", height = 28, width = 8)
+pdf("figures/meta_analysis_results_figures/binary_outcomes.pdf", height = 26, width = 8)
 forest(results, 
        studlab = T, 
        fixed = F,

@@ -88,6 +88,7 @@ dev.off()
 
 # ====2
 rob_data <- read.csv("../systematic_review_MR_adiposity/analysis/quality_assessment/quality_assessment_results.csv")
+rob_data<- rob_data[- grep("WHRadjBMI", rob_data$.id),] # remove whradjbmi because of bias
 rob_data$QA[rob_data$Total <= 19] <- "High"
 rob_data$QA[rob_data$Total >= 20 ] <- "Medium"
 rob_data$QA[rob_data$Total >= 28] <- "Low"
